@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- Character encoding set to UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Viewport settings for responsive design -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> <!-- IE compatibility mode -->
+    <title>ChatConnect - Join a Room</title> <!-- Title of the page -->
+    <link rel="shortcut icon" href="img/Chatappicon.png" type="image/x-icon"> <!-- Favicon for the page -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer"> <!-- Font Awesome icons -->
+    <link rel="stylesheet" href="css/style.css"> <!-- External CSS for the page -->
+</head>
+<body>
+    <div class="join-container">
+        <!-- Header section with the title -->
+        <header class="join-header">
+            <h1>
+                <i class="fas fa-globe-americas"></i> ChatConnect <!-- Font Awesome globe icon with the title -->
+            </h1>
+        </header>
+        <!-- Main section with the form to join a chat room -->
+        <section class="join-main">
+            <form action="chat.html">
+                <div class="form-control">
+                    <label for="username">Username:</label> <!-- Label for username input -->
+                    <input type="text" name="username" id="username" placeholder="Enter username..." required> <!-- Input field for username -->
+                </div>
+                <div class="form-control">
+                    <label for="room">Select Room:</label> <!-- Label for room selection -->
+                    <select name="room" id="room"> <!-- Dropdown to select chat room -->
+                        <option value="Room-1">Room 1</option>
+                        <option value="Room-2">Room 2</option>
+                        <option value="Room-3">Room 3</option>
+                        <option value="Room-4">Room 4</option>
+                        <option value="Room-5">Room 5</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Join Chat</button> <!-- Submit button to join the chat -->
+            </form>
+        </section>
+    </div>
+</body>
+</html>

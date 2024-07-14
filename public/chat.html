@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" /> <!-- Character encoding set to UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Viewport settings for responsive design -->
+    <link rel="shortcut icon" href="img/Chatappicon.png" type="image/x-icon" /> <!-- Favicon for the page -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" /> <!-- Font Awesome icons -->
+    <link rel="stylesheet" href="css/style.css" /> <!-- External CSS for the page -->
+    <title>ChatConnect</title> <!-- Title of the page -->
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Header section with the title and a button to leave the room -->
+        <header class="chat-header">
+            <h1 class="header-title">
+                <i class="fas fa-globe-americas"></i> ChatConnect <!-- Font Awesome globe icon with the title -->
+            </h1>
+            <a href="index.html" class="btn">Leave Room</a> <!-- Link to leave the chat room -->
+        </header>
+        <!-- Main chat area containing the sidebar and messages section -->
+        <main class="chat-main">
+            <!-- Sidebar with room name and list of users -->
+            <aside class="chat-sidebar">
+                <h3><i class="fas fa-comments"></i> Room Name:</h3> <!-- Font Awesome comments icon -->
+                <h2 id="room-name"></h2> <!-- Placeholder for the room name -->
+                <h3><i class="fas fa-users"></i> Users</h3> <!-- Font Awesome users icon -->
+                <ul id="users"></ul> <!-- Placeholder for the list of users -->
+            </aside>
+            <section class="chat-messages"></section> <!-- Section for displaying chat messages -->
+        </main>
+        <!-- Chat form for sending messages -->
+        <div class="chat-form-container">
+            <form id="chat-form">
+                <label for="msg" class="sr-only">Message</label> <!-- Hidden label for accessibility -->
+                <input id="msg" type="text" placeholder="Enter Message" required autocomplete="off" aria-label="Enter Message" /> <!-- Input field for messages -->
+                <button type="submit" class="btn send-button" aria-label="Send Message">
+                    <i class="fas fa-paper-plane"></i> Send <!-- Font Awesome paper plane icon -->
+                </button>
+            </form>
+        </div>
+    </div>
+    <!-- External JavaScript libraries and custom script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js" integrity="sha512-aTKlYRb1QfU1jlF3k+aS4AqTpnTXci4R79mkdie/bp6Xm51O5O3ESAYhvg6zoicj/PD6VYY0XrYwsWLcvGiKZQ==" crossorigin="anonymous"></script> <!-- Query string parsing library -->
+    <script src="/socket.io/socket.io.js"></script> <!-- Socket.IO for real-time communication -->
+    <script src="js/script.js"></script> <!-- Custom JavaScript for the chat functionality -->
+</body>
+</html>

@@ -1,0 +1,304 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+/* Root variables for colors */
+:root {
+   --dark-color-a: #667aff;
+   --dark-color-b: #7386ff;
+   --light-color: #e6e9ff;
+   --success-color: #5cb85c;
+   --error-color: #d9534f;
+}
+
+/* Reset default styling */
+* {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+}
+
+/* Body styling */
+body {
+   font-family: 'Roboto', sans-serif;
+   font-size: 16px;
+   background: #6c6e75;
+   margin: 20px;
+}
+
+/* Remove list styles */
+ul {
+   list-style: none;
+}
+
+/* Remove text decoration for links */
+a {
+   text-decoration: none;
+}
+
+/* Button styling */
+.btn {
+   cursor: pointer;
+   padding: 5px 15px;
+   border: none;
+   border-radius: 5px;
+   background: #b1d8eb;
+   color: #3f5163;
+   font-size: 20px;
+}
+
+/* Chat Page Styles */
+
+/* Chat header button styling */
+.chat-header .btn {
+   cursor: pointer;
+   padding: 5px 15px;
+   border: none;
+   border-radius: 25px;
+   background: #53555b;
+   color: #ffffff;
+   border: 1px solid #ffffff;
+   font-size: 20px;
+}
+
+/* Chat container styling */
+.chat-container {
+   max-width: 1100px;
+   margin: 30px auto;
+   overflow: hidden;
+}
+
+/* Chat header styling */
+.chat-header {
+   background: #53555b;
+   color: #fff;
+   border-radius: 5px 5px 0px 0px;
+   padding: 15px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+/* Main chat area grid layout */
+.chat-main {
+   display: grid;
+   grid-template-columns: 1fr 3fr;
+}
+
+/* Chat sidebar styling */
+.chat-sidebar {
+   background: linear-gradient(to bottom, #53555b, #ffffff);
+   color: #fff;
+   padding: 20px 20px 60px;
+   overflow-y: scroll;
+}
+
+/* Chat sidebar headers styling */
+.chat-sidebar h2 {
+   font-size: 20px;
+   background: #ffffff00;
+   padding: 10px;
+   margin-bottom: 20px;
+}
+
+.chat-sidebar h3 {
+   margin-bottom: 15px;
+}
+
+/* Chat sidebar list items styling */
+.chat-sidebar ul li {
+   padding: 10px 0;
+}
+
+/* Chat messages styling */
+.chat-messages {
+   padding: 30px;
+   max-height: 500px;
+   overflow-y: scroll;
+   background: linear-gradient(to bottom , #53555b, #ffffff);
+   min-height: 68vh;
+}
+
+/* Individual message styling */
+.chat-messages .message {
+   padding: 10px;
+   margin-bottom: 15px;
+   background-color: #ffffff;
+   border-radius: 5px;
+   overflow-wrap: break-word;
+}
+
+/* Message meta information styling */
+.chat-messages .message .meta {
+   font-size: 15px;
+   font-weight: bold;
+   color: #000000;
+   opacity: 0.7;
+   margin-bottom: 7px;
+}
+
+.chat-messages .message .meta span {
+   color: #777;
+}
+
+/* Chat form container styling */
+.chat-form-container {
+   padding: 20px 30px;
+   background-color: #53555b;
+   border-radius: 0 0 5px 5px;
+}
+
+/* Remove outline on focus */
+textarea:focus,
+input:focus {
+   outline: none;
+}
+
+/* Chat form input styling */
+.chat-form-container input[type='text'] {
+   font-size: 16px;
+   padding: 0px 20px;
+   border: none;
+   height: 40px;
+   width: 85%;
+   background: #ffffff;
+   border-radius: 18px;
+}
+
+/* Join Page Styles */
+
+/* Join container styling */
+.join-container {
+   max-width: 500px;
+   margin: 80px auto;
+   color: #ffffff;
+   border-radius: 20px;
+   overflow: hidden;
+}
+
+/* Join header styling */
+.join-header {
+   text-align: center;
+   padding: 20px;
+   background: #000000;
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+} 
+
+/* Join main section styling */
+.join-main {
+   padding: 30px 40px;
+   background: linear-gradient(to bottom, #000000, #ffffff);
+}
+
+/* Join main paragraph styling */
+.join-main p {
+   margin-bottom: 20px;
+}
+
+/* Form control styling */
+.join-main .form-control {
+   margin-bottom: 20px;
+}
+
+/* Form labels styling */
+.join-main label {
+   display: block;
+   margin-bottom: 8px;
+}
+
+/* Join main input styling */
+.join-main input[type='text'] {
+   font-size: 16px;
+   padding: 20px;
+   height: 40px;
+   border-radius: 5px;
+   border: none;
+   background: #ffffff;
+   width: 100%;
+}
+
+/* Join main select styling */
+.join-main select {
+   font-size: 16px;
+   padding: 10px;
+   height: 40px;
+   width: 100%;
+   border: none;
+   border-radius: 5px;
+   color: #000000;
+   background: #ffffff;
+}
+
+/* Join main button styling */
+.join-main .btn {
+   margin-top: 20px;
+   width: 30%;
+   padding: 10px;
+   border: none;
+   margin-bottom: 10px;
+   text-align: center;
+   font-weight: bold;
+   border: 1px solid #000000;
+   border-radius: 5px;
+   color: #000000;
+   background: #ffffff;
+}
+
+/* Responsive styles for smaller screens */
+
+/* Chat main responsive styling */
+@media (max-width: 700px) {
+   .chat-main {
+      display: block;
+   }
+
+   .chat-sidebar {
+      display: none;
+   }
+}
+
+/* Join main button responsive styling */
+@media only screen and (max-width: 426px) {
+   .join-main .btn {
+      width: 46%;
+      padding: 8px;
+   }
+}
+
+/* Chat form container input responsive styling */
+@media only screen and (max-width: 1138px) {
+   .chat-form-container input[type='text'] {
+      width: 60%;
+   }
+}
+
+/* Chat form container input responsive styling */
+@media only screen and (max-width: 464px) {
+   .chat-form-container input[type='text'] {
+      width: 100%;
+   }
+}
+
+/* Send button styling */
+.send-button {
+   cursor: pointer;
+   padding: 10px 30px;
+   border: none;
+   border-radius: 5px;
+   background: #ffffff;
+   color: #000000;
+   font-size: 17px;
+   margin-left: 20px;
+   border-radius: 25px;
+}
+
+/* Send button responsive styling */
+@media only screen and (max-width: 464px) {
+   .send-button {
+      margin-left: 0px;
+      margin-top: 10px;
+   }
+   .chat-messages {
+      min-height: 65vh;
+   }
+}
