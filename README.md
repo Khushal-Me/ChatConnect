@@ -9,6 +9,10 @@ ChatConnect is a real-time chat application built with Node.js, Express, and Soc
 - User notifications for joining and leaving
 - Simple and clean user interface
 
+## Demo
+
+Click [here](https://chat-connect.glitch.me/) for a live demo!
+
 ## Screenshots
 
 
