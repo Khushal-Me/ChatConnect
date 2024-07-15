@@ -11,7 +11,7 @@ ChatConnect is a real-time chat application built with Node.js, Express, and Soc
 
 ## Demo
 
-Click [here](https://chat-connect.glitch.me/) for a live demo!
+Click [here](https://chat-connect-project.glitch.me/) for the live website!
 
 ## Screenshots
 
