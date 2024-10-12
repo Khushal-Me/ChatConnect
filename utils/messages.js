@@ -11,7 +11,7 @@ function formatMessage(username, text) {
     return {
         username, // Username of the sender
         text, // Message text
-        time: moment().tz('America/Los_Angeles').format('h:mm a'), // Timestamp formatted to 'h:mm a' in the specified timezone
+        time: moment().format('h:mm a'), // Timestamp formatted to 'h:mm a' in the user's local time
     };
 }
 
