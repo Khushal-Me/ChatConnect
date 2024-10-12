@@ -21,7 +21,7 @@
 body {
    font-family: 'Roboto', sans-serif;
    font-size: 16px;
-   background: #6c6e75;
+   background: #202227;
    margin: 20px;
 }
 
@@ -44,6 +44,13 @@ a {
    background: #b1d8eb;
    color: #3f5163;
    font-size: 20px;
+}
+
+.button-container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-top: 20px; /* Adjust as needed */
 }
 
 /* Chat Page Styles */
