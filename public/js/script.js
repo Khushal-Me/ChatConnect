@@ -87,7 +87,23 @@ function onChatSubmit(e) {
  * @param {string} msg - The message to send
  */
 function sendMessage(msg) {
-  socket.emit('chatMessage', msg); // Emit chatMessage event to server
+  // Prevent spam and very long messages
+  const MAX_MESSAGE_LENGTH = 500;
+  const MIN_SEND_INTERVAL = 1000; // 1 second between messages
+
+  if (msg.length > MAX_MESSAGE_LENGTH) {
+    alert(`Message too long. Maximum ${MAX_MESSAGE_LENGTH} characters.`);
+    return;
+  }
+
+  // Simple throttling (you'd want a more sophisticated implementation)
+  if (window.lastMessageTime && Date.now() - window.lastMessageTime < MIN_SEND_INTERVAL) {
+    alert('Please wait before sending another message');
+    return;
+  }
+
+  socket.emit('chatMessage', msg);
+  window.lastMessageTime = Date.now();
 }
 
 /**
