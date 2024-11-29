@@ -73,10 +73,20 @@ function isDuplicateMessage(message) {
   return false;
 }
 
-// Optional notification sound
+// notification sound
 function playMessageNotificationSound() {
-  const audio = new Audio('/public/sound/notification-sound.wav');
-  audio.play().catch(e => console.log('Unable to play notification sound'));
+  // Check if browser supports audio
+  if ('Audio' in window) {
+    const audio = new Audio('sound/notification-sound.mp3');
+    
+    // Set volume (optional, between 0 and 1)
+    audio.volume = 0.5;
+    
+    // Play the sound and handle potential errors
+    audio.play().catch(error => {
+      console.warn('Could not play notification sound:', error);
+    });
+  }
 }
 
 /**
