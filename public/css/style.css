@@ -3,11 +3,16 @@
 
 /* Root variables for colors */
 :root {
-   --dark-color-a: #667aff;
-   --dark-color-b: #7386ff;
+   --dark-color-a: #1d1d1e;
+   --dark-color-b: #1d1d1e;
    --light-color: #e6e9ff;
    --success-color: #5cb85c;
    --error-color: #d9534f;
+   --accent-color: #3498db;
+   --dark-color-s: #2c3e50;
+
+   /* Softer transition for smooth interactions */
+   --transition: all 0.3s ease-in-out;
 }
 
 /* Reset default styling */
@@ -20,9 +25,10 @@
 /* Body styling */
 body {
    font-family: 'Roboto', sans-serif;
-   font-size: 16px;
-   background: #202227;
-   margin: 20px;
+   font-size: 17px;
+   line-height: 1.6;
+   background: linear-gradient(130deg, var(--dark-color-a), var(--dark-color-b));
+   color: var(--dark-color-a);
 }
 
 /* Remove list styles */
@@ -308,4 +314,18 @@ input:focus {
    .chat-messages {
       min-height: 65vh;
    }
+}
+
+/* Smoother scrollbar */
+::-webkit-scrollbar {
+   width: 8px;
+}
+
+::-webkit-scrollbar-track {
+   background: var(--dark-color-s);
+}
+
+::-webkit-scrollbar-thumb {
+   background: var(--accent-color);
+   border-radius: 4px;
 }
