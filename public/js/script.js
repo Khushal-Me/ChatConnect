@@ -120,13 +120,20 @@ function clearInput(element) {
  * @param {Object} message - The message object
  */
 function outputMessage(message) {
-  const div = document.createElement('div'); // Create a div element
-  div.classList.add('message'); // Add message class
+  const div = document.createElement('div');
+  div.classList.add('message');
+  div.setAttribute('role', 'article'); // Improve screen reader experience
+  div.setAttribute('aria-label', `Message from ${message.username}`);
+  
   div.innerHTML = `
-    <p class="meta">${escapeHTML(message.username)} <span>${message.time}</span></p>
+    <p class="meta" aria-label="Message metadata">
+      <span class="username">${escapeHTML(message.username)}</span> 
+      <time datetime="${new Date().toISOString()}">${message.time}</time>
+    </p>
     <p class="text">${escapeHTML(message.text)}</p>
-  `; // Set inner HTML with message data
-  chatMessages.appendChild(div); // Append message to chat container
+  `;
+  
+  chatMessages.appendChild(div);
 }
 
 /**
