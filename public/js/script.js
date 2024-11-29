@@ -141,3 +141,18 @@ function outputUsers(users) {
     .map(user => `<li>${escapeHTML(user.username)}</li>`)
     .join(''); // Create list items for each user and join them into a single string
 }
+
+// Add connection error handling
+socket.on('connect_error', (error) => {
+  console.error('Connection failed:', error);
+  alert('Unable to connect to the chat server. Please try again later.');
+});
+
+socket.on('disconnect', (reason) => {
+  if (reason === 'io server disconnect') {
+    // Reconnect manually
+    socket.connect();
+  }
+  
+  alert('You have been disconnected from the chat.');
+});
