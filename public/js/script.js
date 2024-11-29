@@ -137,9 +137,19 @@ function outputRoomName(room) {
  * @param {Array} users - Array of user objects
  */
 function outputUsers(users) {
-  userList.innerHTML = users
-    .map(user => `<li>${escapeHTML(user.username)}</li>`)
-    .join(''); // Create list items for each user and join them into a single string
+  // Use document fragment for better performance
+  const fragment = document.createDocumentFragment();
+  
+  users.forEach(user => {
+    const li = document.createElement('li');
+    li.textContent = escapeHTML(user.username);
+    li.setAttribute('data-username', user.username);
+    fragment.appendChild(li);
+  });
+  
+  // Single DOM update
+  userList.innerHTML = '';
+  userList.appendChild(fragment);
 }
 
 // Add connection error handling
