@@ -44,8 +44,39 @@ function joinChatRoom() {
  * @param {Object} message - The message object
  */
 function onMessage(message) {
-  outputMessage(message); // Display the message in the chat
-  scrollChatToBottom(); // Scroll chat to bottom
+  // Prevent duplicate messages
+  if (isDuplicateMessage(message)) return;
+  
+  outputMessage(message);
+  scrollChatToBottom();
+  
+  // Optional: Play a sound for new messages
+  playMessageNotificationSound();
+}
+
+// Duplicate message prevention
+const recentMessages = new Set();
+function isDuplicateMessage(message) {
+  const messageKey = `${message.username}-${message.text}-${message.time}`;
+  
+  if (recentMessages.has(messageKey)) {
+    return true;
+  }
+  
+  recentMessages.add(messageKey);
+  
+  // Clear old messages to prevent memory buildup
+  if (recentMessages.size > 100) {
+    recentMessages.delete(Array.from(recentMessages)[0]);
+  }
+  
+  return false;
+}
+
+// Optional notification sound
+function playMessageNotificationSound() {
+  const audio = new Audio('/public/sound/notification-sound.wav');
+  audio.play().catch(e => console.log('Unable to play notification sound'));
 }
 
 /**
