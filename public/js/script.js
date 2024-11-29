@@ -31,12 +31,22 @@ function onLoad() {
  * Join the chat room
  */
 function joinChatRoom() {
-  if (!username || !room) {
-    alert('Username and room are required!'); // Alert if username or room is missing
-    window.location.href = '/'; // Redirect to home page
-    return;
+  try {
+    if (!username || !room) {
+      // More descriptive error handling
+      throw new Error('Please provide both a username and a room name');
+    }
+    
+    // Additional input validation
+    if (username.length < 2 || username.length > 20) {
+      throw new Error('Username must be between 2 and 24 characters');
+    }
+    
+    socket.emit('joinRoom', { username, room });
+  } catch (error) {
+    alert(error.message);
+    window.location.href = '/';
   }
-  socket.emit('joinRoom', { username, room }); // Emit joinRoom event to server
 }
 
 /**
