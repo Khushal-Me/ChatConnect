@@ -11,7 +11,7 @@
   "author": "Khushal Mehta",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "moment": "^2.30.1",
     "moment-timezone": "^0.5.45",
     "socket.io": "^4.8.1"
