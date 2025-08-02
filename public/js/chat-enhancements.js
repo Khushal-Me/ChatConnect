@@ -158,8 +158,13 @@ function createEnhancedUserItem(user) {
 }
 
 // Utility Functions
-function updateMessageCount() {
-    messageCount++;
+function updateMessageCount(count) {
+    if (typeof count === 'number') {
+        messageCount = count;
+    } else {
+        messageCount++;
+    }
+    
     const messageCountEl = document.getElementById('message-count');
     if (messageCountEl) {
         messageCountEl.textContent = messageCount;

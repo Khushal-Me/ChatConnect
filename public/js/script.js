@@ -47,9 +47,15 @@ function onLoad() {
  * Initialize chat enhancements
  */
 function initializeEnhancements() {
+  // Initialize counters display
+  updateMessageCountDisplay();
+  updateUserCountDisplay();
+  
   // Add welcome animation
   setTimeout(() => {
-    document.body.classList.add('loaded');
+    if (chatMessages) {
+      chatMessages.classList.add('animate-in');
+    }
   }, 100);
   
   // Initialize typing detection
@@ -59,15 +65,25 @@ function initializeEnhancements() {
     let isTyping = false;
     
     messageInput.addEventListener('input', function() {
-      if (!isTyping) {
+      if (!isTyping && currentUser) {
         isTyping = true;
-        socket.emit('typing', { username, room, typing: true });
+        socket.emit('typing', { 
+          username: currentUser.username, 
+          room: currentUser.room, 
+          typing: true 
+        });
       }
       
       clearTimeout(typingTimer);
       typingTimer = setTimeout(() => {
-        isTyping = false;
-        socket.emit('typing', { username, room, typing: false });
+        if (isTyping && currentUser) {
+          isTyping = false;
+          socket.emit('typing', { 
+            username: currentUser.username, 
+            room: currentUser.room, 
+            typing: false 
+          });
+        }
       }, 1000);
     });
   }
@@ -161,10 +177,13 @@ function onMessage(message) {
   if (chatMessages) {
     chatMessages.appendChild(messageElement);
     
-    // Increment message count
+    // Increment message count and update display
     messageCount++;
+    updateMessageCountDisplay();
+    
+    // Also update through chat enhancements if available
     if (window.chatEnhancements) {
-      window.chatEnhancements.updateMessageCount();
+      window.chatEnhancements.updateMessageCount(messageCount);
     }
     
     // Scroll to bottom
@@ -194,6 +213,9 @@ function onRoomUsers({ room, users }) {
   outputUsers(users);
   
   userCount = users.length;
+  updateUserCountDisplay();
+  
+  // Also update through chat enhancements if available
   if (window.chatEnhancements) {
     window.chatEnhancements.updateUserCount(userCount);
   }
@@ -579,9 +601,33 @@ socket.on('connect_error', (error) => {
 
 socket.on('disconnect', (reason) => {
   if (reason === 'io server disconnect') {
-    // Reconnect manually
+    // The disconnection was initiated by the server, need to reconnect manually
     socket.connect();
   }
-  
-  alert('You have been disconnected from the chat.');
 });
+
+/**
+ * Update message count display
+ */
+function updateMessageCountDisplay() {
+  const messageCountEl = document.getElementById('message-count');
+  if (messageCountEl) {
+    messageCountEl.textContent = messageCount;
+  }
+}
+
+/**
+ * Update user count display
+ */
+function updateUserCountDisplay() {
+  const userCountEl = document.getElementById('user-count');
+  const onlineCountEl = document.getElementById('online-count');
+  
+  if (userCountEl) {
+    userCountEl.textContent = userCount;
+  }
+  
+  if (onlineCountEl) {
+    onlineCountEl.textContent = `${userCount} online`;
+  }
+}
