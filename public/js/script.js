@@ -1,71 +1,249 @@
+// ========================================
+// CHATCONNECT PRO - ENHANCED MAIN SCRIPT
+// ========================================
+
 // DOM Elements
-const chatForm = document.getElementById('chat-form'); // Form for sending messages
-const chatMessages = document.querySelector('.chat-messages'); // Container for chat messages
-const roomName = document.getElementById('room-name'); // Element to display room name
-const userList = document.getElementById('users'); // Element to display list of users
+const chatForm = document.getElementById('chat-form');
+const chatMessages = document.querySelector('.chat-messages') || document.getElementById('chat-messages');
+const roomName = document.getElementById('room-name');
+const userList = document.getElementById('users');
 
 // Parse URL parameters
 const { username, room } = Qs.parse(location.search, {
-  ignoreQueryPrefix: true, // Ignore the query prefix in the URL
+  ignoreQueryPrefix: true,
 });
 
 // Initialize socket connection
-const socket = io(); // Establish connection with the server
+const socket = io();
+
+// Enhanced state management
+let messageCount = 0;
+let userCount = 0;
+let currentUser = null;
+let isConnected = false;
 
 // Event Listeners
-document.addEventListener('DOMContentLoaded', onLoad); // Run onLoad when DOM content is loaded
-chatForm.addEventListener('submit', onChatSubmit); // Run onChatSubmit when form is submitted
+document.addEventListener('DOMContentLoaded', onLoad);
+chatForm?.addEventListener('submit', onChatSubmit);
 
 // Socket event handlers
-socket.on('message', onMessage); // Handle incoming messages
-socket.on('roomUsers', onRoomUsers); // Handle room users update
+socket.on('connect', onConnect);
+socket.on('disconnect', onDisconnect);
+socket.on('message', onMessage);
+socket.on('roomUsers', onRoomUsers);
+socket.on('typing', onTyping);
+socket.on('userJoined', onUserJoined);
+socket.on('userLeft', onUserLeft);
 
 /**
  * Function to run when the DOM content is loaded
  */
 function onLoad() {
-  joinChatRoom(); // Join the chat room on load
+  joinChatRoom();
+  initializeEnhancements();
 }
 
 /**
- * Join the chat room
+ * Initialize chat enhancements
  */
-function joinChatRoom() {
-  try {
-    if (!username || !room) {
-      // More descriptive error handling
-      throw new Error('Please provide both a username and a room name');
-    }
+function initializeEnhancements() {
+  // Add welcome animation
+  setTimeout(() => {
+    document.body.classList.add('loaded');
+  }, 100);
+  
+  // Initialize typing detection
+  const messageInput = document.getElementById('msg');
+  if (messageInput) {
+    let typingTimer;
+    let isTyping = false;
     
-    // Additional input validation
-    if (username.length < 2 || username.length > 20) {
-      throw new Error('Username must be between 2 and 24 characters');
-    }
-    
-    socket.emit('joinRoom', { username, room });
-  } catch (error) {
-    alert(error.message);
-    window.location.href = '/';
+    messageInput.addEventListener('input', function() {
+      if (!isTyping) {
+        isTyping = true;
+        socket.emit('typing', { username, room, typing: true });
+      }
+      
+      clearTimeout(typingTimer);
+      typingTimer = setTimeout(() => {
+        isTyping = false;
+        socket.emit('typing', { username, room, typing: false });
+      }, 1000);
+    });
   }
 }
 
 /**
- * Handle incoming messages
- * @param {Object} message - The message object
+ * Handle socket connection
+ */
+function onConnect() {
+  isConnected = true;
+  console.log('Connected to ChatConnect Pro server');
+  
+  if (window.chatEnhancements) {
+    window.chatEnhancements.showNotification(
+      'Connected!', 
+      'Successfully connected to ChatConnect Pro', 
+      'success'
+    );
+  }
+}
+
+/**
+ * Handle socket disconnection
+ */
+function onDisconnect(reason) {
+  isConnected = false;
+  console.log('Disconnected from server:', reason);
+  
+  if (window.chatEnhancements) {
+    window.chatEnhancements.showNotification(
+      'Disconnected', 
+      'Connection to server lost. Attempting to reconnect...', 
+      'warning'
+    );
+  }
+}
+
+/**
+ * Join the chat room with enhanced validation
+ */
+function joinChatRoom() {
+  try {
+    // Enhanced validation
+    if (!username || !room) {
+      throw new Error('Username and room are required');
+    }
+    
+    if (username.length < 2 || username.length > 20) {
+      throw new Error('Username must be between 2 and 20 characters');
+    }
+    
+    if (!/^[a-zA-Z0-9_\s]+$/.test(username)) {
+      throw new Error('Username contains invalid characters');
+    }
+    
+    currentUser = { username, room };
+    socket.emit('joinRoom', { username, room });
+    
+  } catch (error) {
+    if (window.chatEnhancements) {
+      window.chatEnhancements.showNotification('Error', error.message, 'error');
+    } else {
+      alert(error.message);
+    }
+    
+    // Redirect to home page after a short delay
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 2000);
+  }
+}
+
+/**
+ * Handle incoming messages with enhancements
  */
 function onMessage(message) {
   // Prevent duplicate messages
   if (isDuplicateMessage(message)) return;
   
-  outputMessage(message);
-  scrollChatToBottom();
+  // Create enhanced message element
+  const isOwnMessage = currentUser && message.username === currentUser.username;
+  let messageElement;
   
-  // Optional: Play a sound for new messages
-  playMessageNotificationSound();
+  if (window.chatEnhancements) {
+    messageElement = window.chatEnhancements.createEnhancedMessage(message, isOwnMessage);
+  } else {
+    messageElement = createBasicMessage(message);
+  }
+  
+  // Add message to chat
+  if (chatMessages) {
+    chatMessages.appendChild(messageElement);
+    
+    // Increment message count
+    messageCount++;
+    if (window.chatEnhancements) {
+      window.chatEnhancements.updateMessageCount();
+    }
+    
+    // Scroll to bottom
+    if (window.chatEnhancements) {
+      window.chatEnhancements.scrollChatToBottom();
+    } else {
+      scrollChatToBottom();
+    }
+    
+    // Play notification sound for other users' messages
+    if (!isOwnMessage && window.chatEnhancements) {
+      window.chatEnhancements.playNotificationSound();
+    }
+    
+    // Show desktop notification for other users' messages
+    if (!isOwnMessage && document.hidden) {
+      showDesktopNotification(message);
+    }
+  }
+}
+
+/**
+ * Handle room users update with enhancements
+ */
+function onRoomUsers({ room, users }) {
+  outputRoomName(room);
+  outputUsers(users);
+  
+  userCount = users.length;
+  if (window.chatEnhancements) {
+    window.chatEnhancements.updateUserCount(userCount);
+  }
+}
+
+/**
+ * Handle typing indicators
+ */
+function onTyping({ username: typingUser, typing }) {
+  const typingIndicator = document.getElementById('typing-indicator');
+  
+  if (!typingIndicator || typingUser === currentUser?.username) return;
+  
+  if (typing) {
+    typingIndicator.classList.add('active');
+    typingIndicator.querySelector('.typing-text').textContent = `${typingUser} is typing`;
+  } else {
+    typingIndicator.classList.remove('active');
+  }
+}
+
+/**
+ * Handle user joined notifications
+ */
+function onUserJoined(data) {
+  if (window.chatEnhancements) {
+    window.chatEnhancements.showNotification(
+      'User Joined', 
+      `${data.username} has joined the room`, 
+      'info'
+    );
+  }
+}
+
+/**
+ * Handle user left notifications
+ */
+function onUserLeft(data) {
+  if (window.chatEnhancements) {
+    window.chatEnhancements.showNotification(
+      'User Left', 
+      `${data.username} has left the room`, 
+      'info'
+    );
+  }
 }
 
 // Duplicate message prevention
 const recentMessages = new Set();
+
 function isDuplicateMessage(message) {
   const messageKey = `${message.username}-${message.text}-${message.time}`;
   
@@ -77,104 +255,271 @@ function isDuplicateMessage(message) {
   
   // Clear old messages to prevent memory buildup
   if (recentMessages.size > 100) {
-    recentMessages.delete(Array.from(recentMessages)[0]);
+    const messagesToRemove = Array.from(recentMessages).slice(0, 50);
+    messagesToRemove.forEach(key => recentMessages.delete(key));
   }
   
   return false;
 }
 
-// notification sound
-function playMessageNotificationSound() {
-  // Check if browser supports audio
-  if ('Audio' in window) {
-    const audio = new Audio('sound/notification-sound.mp3');
-    
-    // Set volume (optional, between 0 and 1)
-    audio.volume = 0.5;
-    
-    // Play the sound and handle potential errors
-    audio.play().catch(error => {
-      console.warn('Could not play notification sound:', error);
-    });
-  }
-}
-
 /**
- * Handle room users update
- * @param {Object} data - Contains room and users information
- */
-function onRoomUsers({ room, users }) {
-  outputRoomName(room); // Update room name in DOM
-  outputUsers(users); // Update users list in DOM
-}
-
-/**
- * Handle chat form submission
- * @param {Event} e - The submit event
+ * Handle chat form submission with enhancements
  */
 function onChatSubmit(e) {
-  e.preventDefault(); // Prevent form from submitting normally
-  const msgElement = e.target.elements.msg; // Get the message input element
-  const msg = msgElement.value.trim(); // Get the message and trim whitespace
+  e.preventDefault();
   
-  if (!msg) return; // If message is empty, do nothing
-
-  sendMessage(msg); // Send the message to the server
-  clearInput(msgElement); // Clear the input field
+  const msgElement = e.target.elements.msg;
+  const msg = msgElement?.value.trim();
+  
+  if (!msg) return;
+  
+  // Enhanced validation
+  if (msg.length > 500) {
+    if (window.chatEnhancements) {
+      window.chatEnhancements.showNotification(
+        'Message Too Long', 
+        'Please keep messages under 500 characters', 
+        'warning'
+      );
+    }
+    return;
+  }
+  
+  if (!isConnected) {
+    if (window.chatEnhancements) {
+      window.chatEnhancements.showNotification(
+        'Not Connected', 
+        'Please wait for connection to be established', 
+        'error'
+      );
+    }
+    return;
+  }
+  
+  sendMessage(msg);
+  clearInput(msgElement);
 }
 
 /**
- * Send message to server
- * @param {string} msg - The message to send
+ * Send message to server with rate limiting
  */
 function sendMessage(msg) {
-  // Prevent spam and very long messages
   const MAX_MESSAGE_LENGTH = 500;
-  const MIN_SEND_INTERVAL = 1000; // 1 second between messages
-
+  const MIN_SEND_INTERVAL = 500; // 0.5 seconds between messages
+  
   if (msg.length > MAX_MESSAGE_LENGTH) {
-    alert(`Message too long. Maximum ${MAX_MESSAGE_LENGTH} characters.`);
+    if (window.chatEnhancements) {
+      window.chatEnhancements.showNotification(
+        'Message Too Long', 
+        `Please keep messages under ${MAX_MESSAGE_LENGTH} characters`, 
+        'warning'
+      );
+    }
     return;
   }
-
-  // Simple throttling (you'd want a more sophisticated implementation)
-  if (window.lastMessageTime && Date.now() - window.lastMessageTime < MIN_SEND_INTERVAL) {
-    alert('Please wait before sending another message');
+  
+  // Simple rate limiting
+  const now = Date.now();
+  if (window.lastMessageTime && now - window.lastMessageTime < MIN_SEND_INTERVAL) {
+    if (window.chatEnhancements) {
+      window.chatEnhancements.showNotification(
+        'Slow Down', 
+        'Please wait a moment before sending another message', 
+        'warning'
+      );
+    }
     return;
   }
-
+  
   socket.emit('chatMessage', msg);
-  window.lastMessageTime = Date.now();
+  window.lastMessageTime = now;
 }
 
 /**
  * Clear input field and set focus
- * @param {HTMLElement} element - The input element to clear
  */
 function clearInput(element) {
-  element.value = ''; // Clear the input value
-  element.focus(); // Set focus back to the input
+  if (element) {
+    element.value = '';
+    element.style.height = 'auto'; // Reset height for auto-resize
+    element.focus();
+  }
 }
 
 /**
- * Output message to DOM
- * @param {Object} message - The message object
+ * Create basic message element (fallback)
  */
-function outputMessage(message) {
+function createBasicMessage(message) {
   const div = document.createElement('div');
   div.classList.add('message');
-  div.setAttribute('role', 'article'); // Improve screen reader experience
+  div.setAttribute('role', 'article');
   div.setAttribute('aria-label', `Message from ${message.username}`);
   
+  const isOwnMessage = currentUser && message.username === currentUser.username;
+  if (isOwnMessage) {
+    div.classList.add('own-message');
+  }
+  
   div.innerHTML = `
-    <p class="meta" aria-label="Message metadata">
-      <span class="username">${escapeHTML(message.username)}</span> 
-      <time datetime="${new Date().toISOString()}">${message.time}</time>
-    </p>
-    <p class="text">${escapeHTML(message.text)}</p>
+    <div class="message-avatar">${message.username.charAt(0).toUpperCase()}</div>
+    <div class="message-content">
+      <div class="message-header">
+        <span class="message-author">${escapeHTML(message.username)}</span> 
+        <span class="message-time">${message.time}</span>
+      </div>
+      <div class="message-text">${escapeHTML(message.text)}</div>
+    </div>
   `;
   
-  chatMessages.appendChild(div);
+  return div;
+}
+
+/**
+ * Escape HTML to prevent XSS
+ */
+function escapeHTML(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+/**
+ * Scroll chat window to bottom (fallback)
+ */
+function scrollChatToBottom() {
+  if (chatMessages) {
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+}
+
+/**
+ * Update room name in DOM
+ */
+function outputRoomName(room) {
+  if (roomName) {
+    roomName.textContent = room;
+  }
+}
+
+/**
+ * Update users list in DOM with enhancements
+ */
+function outputUsers(users) {
+  if (!userList) return;
+  
+  // Clear current list
+  userList.innerHTML = '';
+  
+  // Use document fragment for better performance
+  const fragment = document.createDocumentFragment();
+  
+  users.forEach(user => {
+    let userElement;
+    
+    if (window.chatEnhancements) {
+      userElement = window.chatEnhancements.createEnhancedUserItem(user);
+    } else {
+      userElement = createBasicUserItem(user);
+    }
+    
+    fragment.appendChild(userElement);
+  });
+  
+  userList.appendChild(fragment);
+}
+
+/**
+ * Create basic user item (fallback)
+ */
+function createBasicUserItem(user) {
+  const li = document.createElement('li');
+  li.classList.add('user-item');
+  li.textContent = user.username;
+  return li;
+}
+
+/**
+ * Show desktop notification
+ */
+function showDesktopNotification(message) {
+  if ('Notification' in window && Notification.permission === 'granted') {
+    new Notification(`${message.username} in ${room}`, {
+      body: message.text,
+      icon: '/img/Chatappicon.png',
+      tag: 'chatconnect-message'
+    });
+  } else if ('Notification' in window && Notification.permission !== 'denied') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        showDesktopNotification(message);
+      }
+    });
+  }
+}
+
+// Enhanced connection error handling
+socket.on('connect_error', (error) => {
+  console.error('Connection failed:', error);
+  
+  if (window.chatEnhancements) {
+    window.chatEnhancements.showNotification(
+      'Connection Error', 
+      'Unable to connect to the chat server. Please check your internet connection.', 
+      'error'
+    );
+  } else {
+    alert('Unable to connect to the chat server. Please try again later.');
+  }
+});
+
+socket.on('reconnect', (attemptNumber) => {
+  console.log('Reconnected after', attemptNumber, 'attempts');
+  
+  if (window.chatEnhancements) {
+    window.chatEnhancements.showNotification(
+      'Reconnected!', 
+      'Connection has been restored', 
+      'success'
+    );
+  }
+});
+
+socket.on('reconnect_error', (error) => {
+  console.error('Reconnection failed:', error);
+  
+  if (window.chatEnhancements) {
+    window.chatEnhancements.showNotification(
+      'Reconnection Failed', 
+      'Unable to reconnect to the server', 
+      'error'
+    );
+  }
+});
+
+// Page visibility API for notifications
+document.addEventListener('visibilitychange', function() {
+  if (!document.hidden) {
+    // Clear desktop notifications when page becomes visible
+    if ('Notification' in window) {
+      // Close notifications with the same tag
+      // Note: This is limited by browser security policies
+    }
+  }
+});
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', function() {
+  if (socket && isConnected) {
+    socket.emit('disconnect');
+  }
+});
+
+// Request notification permission on load
+if ('Notification' in window && Notification.permission === 'default') {
+  Notification.requestPermission();
 }
 
 /**

@@ -1,19 +1,49 @@
 {
-  "name": "chatconnect",
-  "version": "1.0.0",
-  "description": "",
+  "name": "chatconnect-pro",
+  "version": "3.0.0",
+  "description": "ChatConnect Pro - Next-generation real-time chat application with modern UI and enhanced features",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint *.js utils/*.js",
+    "format": "prettier --write *.js utils/*.js public/js/*.js",
+    "clean": "rm -rf node_modules package-lock.json && npm install"
   },
-  "keywords": [],
+  "keywords": [
+    "chat",
+    "real-time",
+    "socket.io",
+    "express",
+    "messaging",
+    "communication",
+    "modern-ui",
+    "glassmorphism"
+  ],
   "author": "Khushal Mehta",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.21.2",
     "moment": "^2.30.1",
     "moment-timezone": "^0.5.45",
     "socket.io": "^4.8.1"
-  }
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "eslint": "^8.57.0",
+    "prettier": "^3.1.1"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Khushal-Me/ChatConnect.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Khushal-Me/ChatConnect/issues"
+  },
+  "homepage": "https://github.com/Khushal-Me/ChatConnect#readme"
 }

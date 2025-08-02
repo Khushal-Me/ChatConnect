@@ -1,47 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" /> <!-- Character encoding set to UTF-8 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Viewport settings for responsive design -->
-    <link rel="shortcut icon" href="img/Chatappicon.png" type="image/x-icon" /> <!-- Favicon for the page -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" /> <!-- Font Awesome icons -->
-    <link rel="stylesheet" href="css/style.css" /> <!-- External CSS for the page -->
-    <title>ChatConnect</title> <!-- Title of the page -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatConnect Pro - Real-Time Chat</title>
+    <link rel="shortcut icon" href="img/Chatappicon.png" type="image/x-icon">
+    
+    <!-- Modern Icons & Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Emoji Support -->
+    <script src="https://cdn.jsdelivr.net/npm/emoji-js@8.0.0/lib/emoji.min.js"></script>
 </head>
-<body>
+<body class="chat-body">
+    <!-- Background Effects -->
+    <div class="chat-background">
+        <div class="bg-gradient"></div>
+        <div class="bg-particles"></div>
+    </div>
+
+    <!-- Main Chat Container -->
     <div class="chat-container">
-        <!-- Header section with the title and a button to leave the room -->
+        <!-- Enhanced Header -->
         <header class="chat-header">
-            <h1 class="header-title">
-                <i class="fas fa-globe-americas"></i> ChatConnect <!-- Font Awesome globe icon with the title -->
-            </h1>
-            <a href="index.html" class="btn">Leave Room</a> <!-- Link to leave the chat room -->
+            <div class="header-left">
+                <div class="brand-logo">
+                    <i class="fas fa-comments-dollar"></i>
+                    <span>ChatConnect Pro</span>
+                </div>
+                <div class="room-info">
+                    <div class="room-indicator">
+                        <div class="pulse-dot"></div>
+                        <span>Live in</span>
+                    </div>
+                    <h2 id="room-name" class="room-name"></h2>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <span id="user-count">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-message"></i>
+                        <span id="message-count">0</span>
+                    </div>
+                </div>
+                
+                                <div class="header-actions">
+                    <a href="about.html" class="action-btn" title="About">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                    <a href="index.html" class="btn btn-ghost leave-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Leave</span>
+                    </a>
+                </div>
+            </div>
         </header>
-        <!-- Main chat area containing the sidebar and messages section -->
+
+        <!-- Enhanced Chat Main -->
         <main class="chat-main">
-            <!-- Sidebar with room name and list of users -->
+            <!-- Modern Sidebar -->
             <aside class="chat-sidebar">
-                <h3><i class="fas fa-comments"></i> Room Name:</h3> <!-- Font Awesome comments icon -->
-                <h2 id="room-name"></h2> <!-- Placeholder for the room name -->
-                <h3><i class="fas fa-users"></i> Users</h3> <!-- Font Awesome users icon -->
-                <ul id="users"></ul> <!-- Placeholder for the list of users -->
+                <div class="sidebar-header">
+                    <h3>
+                        <i class="fas fa-users-cog"></i>
+                        <span>Room Members</span>
+                    </h3>
+                    <div class="online-indicator">
+                        <div class="pulse-dot online"></div>
+                        <span id="online-count">0 online</span>
+                    </div>
+                </div>
+                
+                <div class="users-container">
+                    <ul id="users" class="users-list"></ul>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="sidebar-actions">
+                    <button class="quick-action" id="clear-chat">
+                        <i class="fas fa-broom"></i>
+                        <span>Clear Chat</span>
+                    </button>
+                </div>
             </aside>
-            <section class="chat-messages"></section> <!-- Section for displaying chat messages -->
+
+            <!-- Enhanced Messages Area -->
+            <section class="chat-messages-container">
+                <div class="messages-header">
+                    <div class="typing-indicator" id="typing-indicator">
+                        <div class="typing-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="typing-content">
+                            <span class="typing-text">Someone is typing</span>
+                            <div class="typing-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-messages" id="chat-messages">
+                    <!-- Messages will be dynamically inserted here -->
+                </div>
+                
+                <div class="scroll-to-bottom" id="scroll-to-bottom">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </section>
         </main>
-        <!-- Chat form for sending messages -->
-        <div class="chat-form-container">
-            <form id="chat-form">
-                <label for="msg" class="sr-only">Message</label> <!-- Hidden label for accessibility -->
-                <input id="msg" type="text" placeholder="Enter Message" required autocomplete="off" aria-label="Enter Message" /> <!-- Input field for messages -->
-                <button type="submit" class="btn send-button" aria-label="Send Message">
-                    <i class="fas fa-paper-plane"></i> Send <!-- Font Awesome paper plane icon -->
+
+        <!-- Enhanced Message Input -->
+                <!-- Enhanced Message Input -->
+        <div class="chat-input-container">
+            <form id="chat-form" class="chat-form">
+                <div class="input-wrapper">
+                    <textarea 
+                        id="msg" 
+                        class="message-input" 
+                        placeholder="Type your message..." 
+                        required 
+                        autocomplete="off"
+                        rows="1"
+                    ></textarea>
+                </div>
+                <button type="submit" class="send-button">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Send</span>
                 </button>
             </form>
+            
+            <!-- Character Counter -->
+            <div class="input-info">
+                <div class="char-counter" id="char-count">0/500</div>
+            </div>
         </div>
     </div>
-    <!-- External JavaScript libraries and custom script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js" integrity="sha512-aTKlYRb1QfU1jlF3k+aS4AqTpnTXci4R79mkdie/bp6Xm51O5O3ESAYhvg6zoicj/PD6VYY0XrYwsWLcvGiKZQ==" crossorigin="anonymous"></script> <!-- Query string parsing library -->
-    <script src="/socket.io/socket.io.js"></script> <!-- Socket.IO for real-time communication -->
-    <script src="js/script.js"></script> <!-- Custom JavaScript for the chat functionality -->
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/chat-enhancements.js"></script>
 </body>
 </html>
