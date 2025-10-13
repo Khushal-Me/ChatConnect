@@ -1,4 +1,4 @@
-# 🚀 ChatConnect Pro
+# ChatConnect Pro
 
 <div align="center">
 
@@ -7,108 +7,108 @@
 ![License](https://img.shields.io/badge/license-MIT-orange?style=for-the-badge)
 ![Node.js](https://img.shields.io/badge/Node.js-16+-success?style=for-the-badge&logo=node.js)
 
-**🌟 A Modern Real-Time Chat Application 🌟**
+**A Modern Real-Time Chat Application**
 
 *Experience seamless real-time communication with beautiful glassmorphism design and powerful features.*
 
-[🌐 Live Demo](https://chat-connect-project.glitch.me/) • [📚 Documentation](#features) • [🐛 Report Bug](https://github.com/Khushal-Me/ChatConnect/issues)
+[Live Demo](https://chat-connect-project.glitch.me/) • [Documentation](#features) • [Report Bug](https://github.com/Khushal-Me/ChatConnect/issues)
 
 </div>
 
 ---
 
-## ✨ What's NEW in v3.0 - Real-Time Chat Experience
+## What's NEW in v3.0 - Real-Time Chat Experience
 
-🎨 **MODERN GLASSMORPHISM UI** - Beautiful modern design with backdrop blur effects  
-⚡ **REAL-TIME MESSAGING** - Instant message delivery with Socket.io  
-🎭 **INTERACTIVE PARTICLES** - Mouse-responsive particle background system  
-⌨️ **TYPING INDICATORS** - See when others are typing in real-time  
-🔔 **SMART NOTIFICATIONS** - Desktop notifications and visual alerts  
-📱 **RESPONSIVE DESIGN** - Perfect experience on all devices  
-🎯 **ENHANCED INPUT** - Auto-resize textarea with character counter  
-🧹 **CLEAR CHAT** - Easy chat management with clear functionality  
-🔒 **SECURE MESSAGING** - XSS protection and input validation  
-👥 **USER PRESENCE** - Live user tracking and room statistics
+- **MODERN GLASSMORPHISM UI** - Beautiful modern design with backdrop blur effects  
+- **REAL-TIME MESSAGING** - Instant message delivery with Socket.io  
+- **INTERACTIVE PARTICLES** - Mouse-responsive particle background system  
+- **TYPING INDICATORS** - See when others are typing in real-time  
+- **SMART NOTIFICATIONS** - Desktop notifications and visual alerts  
+- **RESPONSIVE DESIGN** - Perfect experience on all devices  
+- **ENHANCED INPUT** - Auto-resize textarea with character counter  
+- **CLEAR CHAT** - Easy chat management with clear functionality  
+- **SECURE MESSAGING** - XSS protection and input validation  
+- **USER PRESENCE** - Live user tracking and room statistics
 
-## 🌟 Features That Actually Work
+## Features That Actually Work
 
-### 💬 **Real-Time Communication**
-- 🚀 Instant message delivery with Socket.io
-- ⌨️ Real-time typing indicators showing who's typing
-- 🔔 Desktop notifications with sound alerts
-- 👥 Live user presence and activity tracking
-- 📱 Connection status monitoring with auto-reconnect
+### **Real-Time Communication**
+- Instant message delivery with Socket.io
+- Real-time typing indicators showing who's typing
+- Desktop notifications with sound alerts
+- Live user presence and activity tracking
+- Connection status monitoring with auto-reconnect
 
-### 🎨 **Modern UI Design**
-- ✨ Stunning glassmorphism design with backdrop blur
-- 🌈 Dynamic gradient backgrounds
-- 💫 Interactive particle systems that respond to mouse movement
-- 🎯 Smooth animations and micro-interactions
-- 📐 Fully responsive design for all devices
-- 🎨 Modern color palette with CSS custom properties
+### **Modern UI Design**
+- Stunning glassmorphism design with backdrop blur
+- Dynamic gradient backgrounds
+- Interactive particle systems that respond to mouse movement
+- Smooth animations and micro-interactions
+- Fully responsive design for all devices
+- Modern color palette with CSS custom properties
 
-### 💬 **Enhanced Messaging**
-- 🔤 Character counter with visual feedback (500 char limit)
-- 📏 Auto-resize textarea for better UX
-- 🛡️ XSS protection with HTML sanitization
-- 🚫 Duplicate message prevention
-- ⚡ Input validation and rate limiting
-- 📝 Message timestamps with user avatars
+### **Enhanced Messaging**
+- Character counter with visual feedback (500 char limit)
+- Auto-resize textarea for better UX
+- XSS protection with HTML sanitization
+- Duplicate message prevention
+- Input validation and rate limiting
+- Message timestamps with user avatars
 
-### 🎛️ **Chat Management**
-- 🧹 Clear chat functionality
-- 📜 Scroll to bottom with smart detection
-- 👥 Real-time user list updates
-- 📊 Room statistics and user counts
-- 🔄 Auto-scroll on new messages
-- 💾 Message state management
+### **Chat Management**
+- Clear chat functionality
+- Scroll to bottom with smart detection
+- Real-time user list updates
+- Room statistics and user counts
+- Auto-scroll on new messages
+- Message state management
 
-### 🔔 **Smart Notifications**
-- 🖥️ Desktop notifications with custom messages
-- 🔊 Visual notification system with animations
-- 📱 Browser tab title updates
-- 🎨 In-app notification badges
-- ⚙️ Notification permission handling
+### **Smart Notifications**
+- Desktop notifications with custom messages
+- Visual notification system with animations
+- Browser tab title updates
+- In-app notification badges
+- Notification permission handling
 
-### 🔒 **Security & Performance**
-- 🛡️ XSS protection with HTML sanitization
-- ⚡ Input validation and sanitization
-- 🚫 Rate limiting and spam prevention
-- 🧠 Memory leak prevention
-- 📈 Connection error handling and recovery
-- 🔄 Automatic reconnection with status updates
+### **Security & Performance**
+- XSS protection with HTML sanitization
+- Input validation and sanitization
+- Rate limiting and spam prevention
+- Memory leak prevention
+- Connection error handling and recovery
+- Automatic reconnection with status updates
 
-## 🚀 Getting Started - Quick Setup
+## Getting Started - Quick Setup
 
 ### Prerequisites
-- 🟢 Node.js 16.0 or higher
-- 📦 npm 8.0 or higher
-- 🌐 Modern browser (Chrome, Firefox, Safari, Edge)
+- Node.js 16.0 or higher
+- npm 8.0 or higher
+- Modern browser (Chrome, Firefox, Safari, Edge)
 
 ### Installation - 3 Easy Steps
 
-1. **🔗 Clone the Repository**
+1. **Clone the Repository**
    ```bash
    git clone https://github.com/Khushal-Me/ChatConnect.git
    cd ChatConnect
    ```
 
-2. **📦 Install Dependencies**
+2. **Install Dependencies**
    ```bash
    npm install
    ```
 
-3. **🚀 Launch the Application**
+3. **Launch the Application**
    ```bash
    npm start
    ```
 
-4. **🌐 Open Your Browser**
+4. **Open Your Browser**
    ```
    http://localhost:3000
    ```
 
-## 🛠️ Technology Stack - Built with Modern Web Technologies
+## Technology Stack - Built with Modern Web Technologies
 
 ### Backend Foundation
 - **Node.js** - Runtime environment
@@ -136,36 +136,36 @@
 - **Prettier** - Code formatting (configured)
 - **Git** - Version control
 
-## 🏗️ Project Structure - Clean and Organized
+## Project Structure - Clean and Organized
 
 ```
 ChatConnect/
-├── 📁 public/                    # Client-side files
-│   ├── 📁 css/
-│   │   └── 🎨 style.css          # Glassmorphism styles and themes
-│   ├── 📁 js/
-│   │   ├── 🧠 script.js          # Core chat functionality
-│   │   ├── ✨ chat-enhancements.js  # Enhanced chat features
-│   │   ├── ✨ chat-enhancements-simple.js  # Fallback enhancements
-│   │   ├── 🎭 landing.js         # Landing page interactions
-│   │   └── 🎪 particle-system.js # Interactive particle effects
-│   ├── 📁 img/
-│   │   └── 🖼️ Chatappicon.png    # App icon
-│   ├── 📁 sound/
-│   │   └── 🔊 notification-sound.mp3 # Audio alerts
-│   ├── 🏠 index.html             # Landing page
-│   ├── 💬 chat.html              # Main chat interface
-│   └── 📄 about.html             # About page
-├── 📁 utils/                     # Server utilities
-│   ├── 💬 messages.js            # Message formatting
-│   └── 👥 users.js               # User management with statistics
-├── 🔧 server.js                  # Express server with Socket.io
-├── 📦 package.json               # Dependencies and scripts
-├── 📜 LICENSE                    # MIT License
-└── 📖 README.md                  # This file
+├── public/                       # Client-side files
+│   ├── css/
+│   │   └── style.css             # Glassmorphism styles and themes
+│   ├── js/
+│   │   ├── script.js             # Core chat functionality
+│   │   ├── chat-enhancements.js # Enhanced chat features
+│   │   ├── chat-enhancements-simple.js # Fallback enhancements
+│   │   ├── landing.js            # Landing page interactions
+│   │   └── particle-system.js   # Interactive particle effects
+│   ├── img/
+│   │   └── Chatappicon.png       # App icon
+│   ├── sound/
+│   │   └── notification-sound.mp3 # Audio alerts
+│   ├── index.html                # Landing page
+│   ├── chat.html                 # Main chat interface
+│   └── about.html                # About page
+├── utils/                        # Server utilities
+│   ├── messages.js               # Message formatting
+│   └── users.js                  # User management with statistics
+├── server.js                     # Express server with Socket.io
+├── package.json                  # Dependencies and scripts
+├── LICENSE                       # MIT License
+└── README.md                     # This file
 ```
 
-## 🎮 How to Use
+## How to Use
 
 ### Joining a Chat Room
 1. **Enter Username** - Choose a unique username (2-20 characters)
@@ -183,7 +183,7 @@ ChatConnect/
 - **Visual Indicators** - See connection status and user count updates
 - **Sound Alerts** - Audio notifications for new messages
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Here's how you can help:
 
@@ -193,7 +193,7 @@ We welcome contributions! Here's how you can help:
 4. **Push to the branch** (`git push origin feature/AmazingFeature`)
 5. **Open a Pull Request**
 
-## 📝 Available Scripts
+## Available Scripts
 
 ```bash
 npm start        # Start the production server
@@ -203,23 +203,23 @@ npm run format   # Format code with Prettier
 npm run clean    # Clean install dependencies
 ```
 
-## 🌐 Browser Support
+## Browser Support
 
-- ✅ Chrome 80+
-- ✅ Firefox 75+
-- ✅ Safari 13+
-- ✅ Edge 80+
+- Chrome 80+
+- Firefox 75+
+- Safari 13+
+- Edge 80+
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Author
+## Author
 
 **Khushal Mehta**
 - GitHub: [@Khushal-Me](https://github.com/Khushal-Me)
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Socket.io team for real-time communication
 - Particles.js for beautiful particle effects
@@ -230,8 +230,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**⭐ Star this repo if you find it helpful! ⭐**
+**Star this repo if you find it helpful!**
 
-Made with ❤️ by [Khushal Mehta](https://github.com/Khushal-Me)
+Made with love by [Khushal Mehta](https://github.com/Khushal-Me)
 
 </div>
