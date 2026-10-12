@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js",
+    "dev": "node --watch server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint *.js utils/*.js",
     "format": "prettier --write *.js utils/*.js public/js/*.js",
@@ -30,9 +30,12 @@
     "socket.io": "^4.8.1"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2",
     "eslint": "^8.57.0",
     "prettier": "^3.1.1"
+  },
+  "overrides": {
+    "minimatch": "^3.1.4",
+    "qs": "^6.16.0"
   },
   "engines": {
     "node": ">=16.0.0",
